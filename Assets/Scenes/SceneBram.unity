@@ -249,7 +249,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 6
-  m_Range: 5
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -741,9 +741,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1583359388}
+  - component: {fileID: 1583359389}
   - component: {fileID: 1583359387}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: PostProcessing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -780,6 +781,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1583359389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583359386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c8749178b1faa458abdbef3d22b78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configs:
+  - {fileID: 11400000, guid: ba73324986810734d8421b710bdc4bc7, type: 2}
+  - {fileID: 11400000, guid: 0800b623404f45043b9bcb040718b191, type: 2}
+  - {fileID: 11400000, guid: 3558eaf1e2e8c3d46b557f48f940f9af, type: 2}
+  - {fileID: 11400000, guid: 449cb32ce36d922418d419ac2e17618f, type: 2}
+  transitionTime: 5
 --- !u!1001 &6115326522734796175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -839,6 +858,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -13
       objectReference: {fileID: 0}
+    - target: {fileID: 3496298056695435361, guid: 68c9bc78daee1904d83abcf6ef9475ad, type: 3}
+      propertyPath: processingBehaviour
+      value: 
+      objectReference: {fileID: 1583359389}
     - target: {fileID: 3673564084822944825, guid: 68c9bc78daee1904d83abcf6ef9475ad, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9832799

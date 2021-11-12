@@ -5,9 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-    CharacterController controller;
+    private CharacterController controller;
+    public PostProcessingBehaviour processingBehaviour;
 
-    public float movementSpeed = .001f;
+    public float movementSpeed = 1f;
 
     void Awake()
     {
@@ -18,6 +19,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Test");
+            processingBehaviour.IncreaseIntensity();
+        }
     }
 
     private void Move()
@@ -30,4 +36,6 @@ public class Player : MonoBehaviour
         result *= movementSpeed * Time.deltaTime;
         controller.Move(result);
     }
+
+
 }
