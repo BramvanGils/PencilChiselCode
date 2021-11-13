@@ -30,14 +30,16 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        //Gather Input
+        //Find Forces
         Vector3 verticalMovement = Vector3.forward * Input.GetAxisRaw("Vertical");
         Vector3 horizontalMovement = Vector3.right * Input.GetAxisRaw("Horizontal");
-        
+        Vector3 gravity = Vector3.down * 2f;
+
         //Calculate Motion
         Vector3 result = verticalMovement + horizontalMovement;
         if (result.magnitude > 1f)
             result = result.normalized;
+        result += gravity;
         result *= movementSpeed * Time.deltaTime;
         controller.Move(result);
 
@@ -46,13 +48,13 @@ public class Player : MonoBehaviour
         {
             facingLeft = false;
             processingBehaviour.SlideVignetteFocus(facingLeft);
-            meshHandle.localRotation = Quaternion.Euler(0, 180, 0);
+            meshHandle.localScale = new Vector3(-1, 1, 1);
         }
         if (!facingLeft && result.x < 0)
         {
             facingLeft = true;
             processingBehaviour.SlideVignetteFocus(facingLeft);
-            meshHandle.localRotation = Quaternion.Euler(0, 0, 0);
+            meshHandle.localScale = new Vector3(1, 1, 1);
         }
     }
 }
