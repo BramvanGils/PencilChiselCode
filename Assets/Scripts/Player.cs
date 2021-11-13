@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private CharacterController controller;
     [SerializeField] private PostProcessingBehaviour processingBehaviour;
     [SerializeField] private Transform meshHandle;
+    private Animator animator;
 
     private bool facingLeft = true;
 
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -39,6 +41,8 @@ public class Player : MonoBehaviour
         Vector3 result = verticalMovement + horizontalMovement;
         if (result.magnitude > 1f)
             result = result.normalized;
+        animator.SetBool("Walking", result.magnitude > 0.1f);
+
         result += gravity;
         result *= movementSpeed * Time.deltaTime;
         controller.Move(result);

@@ -111,7 +111,7 @@ public class PostProcessingBehaviour : MonoBehaviour
         while (slideProgress < 1)
         {
             slideProgress += Time.deltaTime;
-            float augmentedProgress = Mathf.Pow((Mathf.Cos((slideProgress + 1) * Mathf.PI) + 1) / 2, 0.5f);
+            float augmentedProgress = Mathf.Pow((Mathf.Cos((slideProgress + 1) * Mathf.PI) + 1) / 2, 1f);
             lrPos = facingLeft ? 1 - augmentedProgress : augmentedProgress;
 
             yield return null;
