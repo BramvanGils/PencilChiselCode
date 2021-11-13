@@ -13,9 +13,13 @@ public class PostProcessingBehaviour : MonoBehaviour
 
     [SerializeField] private PostProcessConfig[] configs;
 
+
     private int intensity;
 
     public float transitionTime = 1f;
+
+    [NonSerialized] public bool facingLeft;
+    private bool inSlide = false;
 
     private void Awake()
     {
@@ -35,26 +39,55 @@ public class PostProcessingBehaviour : MonoBehaviour
         filmGrain.intensity.SetValue(new NoInterpFloatParameter(configs[0].filmGrainIntensity, true));
     }
 
+    private void Update()
+    {
+        PositionVignette();
+    }
+
     public void IncreaseIntensity()
     {
-        if (intensity < configs.Length)
+        if (intensity+1 < configs.Length)
         {
             StartCoroutine(Transistion(configs[intensity], configs[intensity + 1]));
             intensity++;
         }
     }
 
-    private float timer;
+    public void SlideVignetteFocus(bool facignLeft)
+    {
+        this.facingLeft = facignLeft;
+        if (!inSlide)
+        {
+            StartCoroutine(SlideFocus());
+        }
+        else slideProgress = 1 - slideProgress;
+    }
+
+    private void PositionVignette()
+    {
+        float x;
+        float xl = (1.15f * vignette.intensity.GetValue<float>()) - .25f;
+        float xr = 1 - xl;
+        x = Mathf.Lerp(xl, xr, lrPos);
+        vignette.center.SetValue(new NoInterpVector2Parameter(new Vector2(x, 0.5f), true));
+    }
+
+    private void OnApplicationQuit()
+    {
+        Start();
+    }
+
+    private float timerA;
     private IEnumerator Transistion(PostProcessConfig configStart, PostProcessConfig configEnd)
     {
-        timer = 0;
-        while (timer < transitionTime)
+        timerA = 0;
+        while (timerA < transitionTime)
         {
-            timer += Time.deltaTime;
-            float t = Mathf.Clamp(timer / transitionTime, 0, 1);
-            
-            vignette.color.SetValue(new NoInterpColorParameter(Color.Lerp(configStart.vignetteColor, configEnd.vignetteColor, t) , true));
-            vignette.intensity.SetValue(new NoInterpFloatParameter(Mathf.Lerp(configStart.vignetteIntensity, configEnd.vignetteIntensity, t) , true));
+            timerA += Time.deltaTime;
+            float t = Mathf.Clamp(timerA / transitionTime, 0, 1);
+
+            vignette.color.SetValue(new NoInterpColorParameter(Color.Lerp(configStart.vignetteColor, configEnd.vignetteColor, t), true));
+            vignette.intensity.SetValue(new NoInterpFloatParameter(Mathf.Lerp(configStart.vignetteIntensity, configEnd.vignetteIntensity, t), true));
             vignette.smoothness.SetValue(new NoInterpFloatParameter(Mathf.Lerp(configStart.vignetteSmoothness, configEnd.vignetteSmoothness, t), true));
             depthOfField.gaussianEnd.SetValue(new NoInterpFloatParameter(Mathf.Lerp(configStart.gausianEnd, configEnd.gausianEnd, t), true));
             filmGrain.intensity.SetValue(new NoInterpFloatParameter(Mathf.Lerp(configStart.filmGrainIntensity, configEnd.filmGrainIntensity, t), true));
@@ -63,8 +96,24 @@ public class PostProcessingBehaviour : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    private float slideProgress;
+    private float lrPos;
+    private IEnumerator SlideFocus()
     {
-        Start();
+        inSlide = true;
+
+        slideProgress = 0;
+        while (slideProgress < 1)
+        {
+            slideProgress += Time.deltaTime;
+            float augmentedProgress = Mathf.Pow((Mathf.Cos((slideProgress + 1) * Mathf.PI) + 1) / 2, 0.5f);
+            lrPos = facingLeft ? 1 - augmentedProgress : augmentedProgress;
+
+            yield return null;
+        }
+
+        inSlide = false;
     }
+
+    
 }

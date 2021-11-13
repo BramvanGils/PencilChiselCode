@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Intensity3
   m_EditorClassIdentifier: 
   vignetteColor: {r: 0, g: 0, b: 0, a: 0}
-  vignetteIntensity: 1
-  vignetteSmoothness: 1
-  filmGrainIntensity: 1
-  gausianEnd: 1
+  vignetteIntensity: 0.5
+  vignetteSmoothness: 0.7
+  filmGrainIntensity: 0.75
+  gausianEnd: 50
