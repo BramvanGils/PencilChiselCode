@@ -74,7 +74,12 @@ public class PostProcessingBehaviour : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Start();
+        vignette.color.SetValue(new NoInterpColorParameter(Color.black, true));
+        vignette.intensity.SetValue(new NoInterpFloatParameter(0, true));
+        vignette.smoothness.SetValue(new NoInterpFloatParameter(0, true));
+        depthOfField.gaussianEnd.SetValue(new NoInterpFloatParameter(1000, true));
+        filmGrain.intensity.SetValue(new NoInterpFloatParameter(0, true));
+
     }
 
     private float timerA;
