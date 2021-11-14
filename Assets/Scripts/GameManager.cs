@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Grimace grimace;
+    [SerializeField] private RobotArm robotArm;
     [SerializeField] private PostProcessingBehaviour postProcessing;
 
     public void Trigger(string triggerName)
@@ -19,8 +20,11 @@ public class GameManager : MonoBehaviour
                 grimace.Attack();
                 ResetGame();
                 break;
-            case "":
-
+            case "ActivateTrigger":
+                robotArm.Activate();
+                break;
+            case "InsertTrigger":
+                robotArm.Insert();
                 break;
             default:
                 Debug.Log("Unrecognized trigger: " + triggerName);

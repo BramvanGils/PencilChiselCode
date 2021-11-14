@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,9 @@ public class Player : MonoBehaviour
     private Animator animator;
 
     private bool facingLeft = true;
-
+    private bool paralyzed;
     public float movementSpeed = 1f;
+    
 
     void Awake()
     {
@@ -23,7 +25,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (!paralyzed) Move();
+        else animator.SetBool("Walking", false);
         if (Input.GetMouseButtonDown(0))
         {
             processingBehaviour.IncreaseIntensity();
@@ -60,5 +63,17 @@ public class Player : MonoBehaviour
             processingBehaviour.SlideVignetteFocus(facingLeft);
             meshHandle.localScale = new Vector3(1, 1, 1);
         }
+    }
+
+    public void OnInsertionStart()
+    {
+        paralyzed = true;
+        animator.SetTrigger("Insert");
+    }
+
+    public void OnInsertionEnd()
+    {
+        paralyzed = false;
+        animator.SetTrigger("Insert");
     }
 }
