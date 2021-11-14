@@ -10,6 +10,7 @@ public class PostProcessingBehaviour : MonoBehaviour
     private Vignette vignette;
     private FilmGrain filmGrain;
     private DepthOfField depthOfField;
+    private ColorAdjustments colorAdjustments;
 
     [SerializeField] private PostProcessConfig[] configs;
 
@@ -28,6 +29,7 @@ public class PostProcessingBehaviour : MonoBehaviour
         volume.sharedProfile.TryGet<Vignette>(out vignette);
         volume.sharedProfile.TryGet<FilmGrain>(out filmGrain);
         volume.sharedProfile.TryGet<DepthOfField>(out depthOfField);
+        volume.sharedProfile.TryGet<ColorAdjustments>(out colorAdjustments);
     }
 
     private void Start()
@@ -63,6 +65,13 @@ public class PostProcessingBehaviour : MonoBehaviour
         else slideProgress = 1 - slideProgress;
     }
 
+    public void BlackenScreen(float intensity) 
+    {
+        float i = 1 - intensity;
+        Debug.Log(intensity);
+        colorAdjustments.colorFilter.SetValue(new NoInterpColorParameter(new Color(i, i, i), true));
+    }
+
     private void PositionVignette()
     {
         float x;
@@ -79,6 +88,7 @@ public class PostProcessingBehaviour : MonoBehaviour
         vignette.smoothness.SetValue(new NoInterpFloatParameter(0, true));
         depthOfField.gaussianEnd.SetValue(new NoInterpFloatParameter(1000, true));
         filmGrain.intensity.SetValue(new NoInterpFloatParameter(0, true));
+        colorAdjustments.colorFilter.SetValue(new NoInterpColorParameter(new Color(1, 1, 1), true));
 
     }
 
@@ -119,6 +129,4 @@ public class PostProcessingBehaviour : MonoBehaviour
 
         inSlide = false;
     }
-
-    
 }
