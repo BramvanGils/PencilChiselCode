@@ -23,6 +23,11 @@ public class RobotArm : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        SetTransparency(0);
+    }
+
     public void Activate()
     {
         if (!active)
