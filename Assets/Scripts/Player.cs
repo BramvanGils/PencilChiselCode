@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     private CharacterController controller;
@@ -74,6 +75,5 @@ public class Player : MonoBehaviour
     public void OnInsertionEnd()
     {
         paralyzed = false;
-        animator.SetTrigger("Insert");
     }
 }

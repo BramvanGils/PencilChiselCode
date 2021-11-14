@@ -533,4 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea328652fad747741a72bd6c10a12bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magentaObjects: []
   player: {fileID: 0}
+  bootClip: {fileID: 8300000, guid: 930f7593312988643bb087e96d9f19ed, type: 3}
+  insertClip: {fileID: 8300000, guid: 7de6390eba5b5b84bb66b456843ed0ea, type: 3}
