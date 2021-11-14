@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Grimace grimace;
     [SerializeField] private RobotArm robotArm;
     [SerializeField] private PostProcessingBehaviour postProcessing;
+    [SerializeField] private door door;
 
     public void Trigger(string triggerName)
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
                 break;
             case "InsertTrigger":
                 robotArm.Insert();
+                door.OpenDoor();
                 break;
             default:
                 Debug.Log("Unrecognized trigger: " + triggerName);

@@ -12,6 +12,8 @@ public class Grimace : MonoBehaviour
     [SerializeField] private AudioClip gasp;
     [SerializeField] private AudioClip attack;
 
+    [SerializeField] private Transform GrimaceSpot2;
+
     private bool whispering = true;
 
 
