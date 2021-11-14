@@ -1170,7 +1170,7 @@
     "m_Name": "Transparency",
     "m_DefaultReferenceName": "Vector1_9549378d73e446eb84906e28325a309a",
     "m_OverrideReferenceName": "_Transparency",
-    "m_GeneratePropertyBlock": false,
+    "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,

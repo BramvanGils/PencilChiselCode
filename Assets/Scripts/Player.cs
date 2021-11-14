@@ -8,9 +8,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private CharacterController controller;
+    private AudioSource audioSource;
+    private Animator animator;
+
     [SerializeField] private PostProcessingBehaviour processingBehaviour;
     [SerializeField] private Transform meshHandle;
-    private Animator animator;
 
     private bool facingLeft = true;
     private bool paralyzed;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -70,6 +73,7 @@ public class Player : MonoBehaviour
     {
         paralyzed = true;
         animator.SetTrigger("Insert");
+        audioSource.Play();
     }
 
     public void OnInsertionEnd()
