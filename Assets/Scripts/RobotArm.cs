@@ -10,6 +10,7 @@ public class RobotArm : MonoBehaviour
 
     [SerializeField]private GameObject[] magentaObjects;
     [SerializeField] private Player player;
+    [SerializeField] private GameObject eye;
 
     private bool active;
     private bool insertedMagenta;
@@ -83,5 +84,10 @@ public class RobotArm : MonoBehaviour
     private void OnApplicationQuit()
     {
         SetTransparency(1);
+    }
+
+    public void DestroyEye()
+    {
+        Destroy(eye.gameObject);
     }
 }

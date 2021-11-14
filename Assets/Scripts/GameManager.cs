@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
                 break;
             case "InsertTrigger":
                 robotArm.Insert();
-                door.OpenDoor();
                 break;
             default:
                 Debug.Log("Unrecognized trigger: " + triggerName);

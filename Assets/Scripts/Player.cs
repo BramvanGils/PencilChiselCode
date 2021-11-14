@@ -31,10 +31,7 @@ public class Player : MonoBehaviour
     {
         if (!paralyzed) Move();
         else animator.SetBool("Walking", false);
-        if (Input.GetMouseButtonDown(0))
-        {
             processingBehaviour.IncreaseIntensity();
-        }
     }
 
     private void Move()
@@ -74,10 +71,12 @@ public class Player : MonoBehaviour
         paralyzed = true;
         animator.SetTrigger("Insert");
         audioSource.Play();
+        animator.SetTrigger("TriggerWrithe");
     }
 
     public void OnInsertionEnd()
     {
         paralyzed = false;
+        processingBehaviour.IncreaseIntensity();
     }
 }
