@@ -25,10 +25,13 @@ public class RobotArm : MonoBehaviour
 
     public void Activate()
     {
-        active = true;
-        animator.SetTrigger("Activate");
-        audioSource.clip = bootClip;
-        audioSource.Play();
+        if (!active)
+        {
+            animator.SetTrigger("Activate");
+            audioSource.clip = bootClip;
+            audioSource.Play();
+            active = true;
+        }
     }
 
     public void Insert()
