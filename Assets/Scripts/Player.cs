@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     {
         if (!paralyzed) Move();
         else animator.SetBool("Walking", false);
-            processingBehaviour.IncreaseIntensity();
     }
 
     private void Move()
